@@ -1,0 +1,46 @@
+# --- Padrão para todos os arquivos ---
+# Define o comportamento padrão para todos os arquivos.
+# 'text=auto' permite que o Git decida se um arquivo é texto ou binário.
+# 'eol=lf' padroniza os finais de linha para LF (padrão em Linux/macOS),
+# o que evita problemas de compatibilidade com o Windows (que usa CRLF).
+* text=auto eol=lf
+
+# --- Arquivos de Código-Fonte C++ ---
+# Identifica os arquivos de código-fonte como texto e especifica a linguagem
+# para que o Git possa gerar diffs mais inteligentes e legíveis.
+*.c      text diff=cpp
+*.cpp    text diff=cpp
+*.h      text diff=cpp
+*.hpp    text diff=cpp
+*.inl    text diff=cpp
+
+# --- Arquivos de Projeto e Build ---
+# Garante que arquivos comuns de configuração de projeto tenham finais de linha LF.
+Makefile      text eol=lf
+CMakeLists.txt text eol=lf
+*.cmake       text eol=lf
+
+# --- Formatos de Documentação e Texto ---
+# Garante que a documentação também siga o padrão de final de linha.
+*.md   text eol=lf
+*.txt  text eol=lf
+
+# --- Arquivos Binários ---
+# Marca explicitamente os arquivos que são binários.
+# Isso impede que o Git tente converter seus finais de linha ou gerar diffs de texto.
+*.o      binary
+*.a      binary
+*.so     binary
+*.lib    binary
+*.dll    binary
+*.exe    binary
+*.bin    binary
+*.dat    binary
+*.obj    binary
+
+# --- Formatos de Imagem (caso inclua no projeto) ---
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.svg    binary
