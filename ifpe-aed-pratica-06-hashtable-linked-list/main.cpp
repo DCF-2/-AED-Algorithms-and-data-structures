@@ -32,7 +32,7 @@ long hash_function<int>(int x) {
         hash = -hash;
     }
     
-    return hash;
+    return hash % 1000000007;
 }
 
 // Calcula o hash para chaves do tipo string
@@ -47,7 +47,7 @@ long hash_function<string>(string key) {
     if (hash < 0){
         hash = -hash;
     }
-    return hash;
+    return hash % 1000000007;
 }
 
 template <>
@@ -252,4 +252,3 @@ int main() {
 
     return 0;
 }
-
