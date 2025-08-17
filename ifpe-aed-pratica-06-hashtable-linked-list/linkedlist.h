@@ -31,20 +31,31 @@ public:
         }
     }
 
-    // Adiciona no início da lista
+    // Adiciona no inï¿½cio da lista
     void add(T value) {
-        // TODO
+       Node * novo_no = new Node(value, head);
+        head = novo_no;
         _size++;
     }
 
     // Remove um item identificado por value, retorna indice.
-    // Se o elemento não existe, retorna -1;
+    // Se o elemento nï¿½o existe, retorna -1;
     void remove(int idx) {
         if (idx < 0 || idx >= _size) throw runtime_error("Indice invalido.");
-
-        // TODO
-
-        _size--;
+        if (idx == 0){
+            Node * no_a_remover = head;
+            head = head->next;
+            delete no_a_remover;
+            return;
+        }
+    Node * no_anterior = head;
+    for (int i = 0; i < idx - 1; i++) {
+        no_anterior = no_anterior->next;
+    }
+    Node * no_a_remover = no_anterior->next;
+    no_anterior->next = no_a_remover->next;
+    delete no_a_remover;
+         _size--;
     }
 
     // Exibe os items na tela

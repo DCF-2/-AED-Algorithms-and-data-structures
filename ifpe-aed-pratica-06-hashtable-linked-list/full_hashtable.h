@@ -25,20 +25,35 @@ public:
 
     void insert(T_key key, T_value value) override {
         int idx = this->get_idx(key);
-
-        // TODO
-
-        this->size++;
+        for(auto& par : table[idx]){
+            if(par.first == key){
+                par.second = value;
+                return;
+            }
+        }
+        table[idx].add({key,value});
+        //this->size++;
     }
 
     void remove(T_key key) override {
-        // TODO
-	this->size--;
+        int idx = this->get_idx(key);
+        int pos_list = search_list(idx, key);
+        if(pos_list != -1){
+            table[idx].remove(pos_list);
+        } else{
+            this->size++;
+        }
+    
+	//this->size--;
     }
 
     T_value search(T_key key) override {
-        // TODO
-
+        int idx = this->get_idx(key);
+        for(auto& par : table[idx]){
+            if(par.first == key){
+                return par.second;
+            }
+        }
         return this->not_found;
     }
 
