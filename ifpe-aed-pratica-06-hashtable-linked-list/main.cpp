@@ -64,7 +64,7 @@ long hash_function<CPF>(CPF cpf) {
         if (hash < 0){
         hash = -hash;
     }
-    return hash;
+    return hash % 1000000007;
 }
 
 // NAO MEXER
