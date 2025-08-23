@@ -11,12 +11,31 @@
 #include "bst.h"
 
 BinaryTree::Node * BinaryTree::_insert(Node *_root, int key) {
-    // TODO
+
+	// nullptr verifica sse um ponteiro eh nulo
+    if(_root == nullptr){
+	return new Node(key);
+	}
+	// --- Passos Recursivos ---
+	if(key < _root->key){
+		_root->left = _insert(_root->left, key);
+	}else if(key > _root->key){
+		_root->right = _insert(_root->right, key);
+	}
+	updateH(_root);
     return _root;
 }
 
 BinaryTree::Node * BinaryTree::_search(Node *_root, int key) {
-    // TODO
+    if(_root == nullptr){	return NULL;}
+	if(key == _root->key){	return _root;}
+
+	// --- Passos Recursivos ---
+	if(key < _root->key){
+		return _search(_root->left, key);
+	}else{
+		return _search(_root->right, key);
+	}
     return nullptr;
 }
 
@@ -29,19 +48,22 @@ void BinaryTree::_show(Node * _root) {
 }
 
 void BinaryTree::_sort(Node * _root, vector<int> &res) {
-    // TODO
+    if (_root == nullptr) return;
+	_sort(_root->left, res);
+	res.push_back(_root->key);
+	_sort(_root->right, res);
     
 }
 
 BinaryTree::Node * BinaryTree::_remove(Node *_root, int key) {
 
-	if (_root == nullptr) return nullptr; // (sub)árvore vazia, nada a fazer
+	if (_root == nullptr) return nullptr; // (sub)arvore vazia, nada a fazer
 
 	if (key == _root->key) { // Chave encontrada!
 		if (_root->left != nullptr && _root->right != nullptr) { // Caso 3
 			int maxLeft;
 			// Removo o maior filho da esquerda e
-			// substituo o valor do nó atual com o valor que era dele
+			// substituo o valor do no atual com o valor que era dele
 			_root->left = _removeMax(_root->left, maxLeft);
             _root->key = maxLeft;
 		} else { // Casos 1 e 2
@@ -63,7 +85,7 @@ BinaryTree::Node * BinaryTree::_remove(Node *_root, int key) {
 }
 
 BinaryTree::Node * BinaryTree::_removeMax(Node *_root, int & max) {
-	if (_root == nullptr) throw std::runtime_error("Não deveria estar vazia");
+	if (_root == nullptr) throw std::runtime_error("Nï¿½o deveria estar vazia");
 
 	if (_root->right != nullptr) {
         _root->right = _removeMax(_root->right, max);
@@ -80,37 +102,37 @@ BinaryTree::Node * BinaryTree::_removeMax(Node *_root, int & max) {
 	return _root;
 }
 
-// Acha nó _predecessor (pred) a chave (key)
+// Acha nï¿½ _predecessor (pred) a chave (key)
 void BinaryTree::_predecessor(Node * _root, Node * & pred, int key) {
 	if (_root == nullptr) return;
 
 	if (_root->key == key) { 		// Chave encontrada
-		_root = _root->left;			// Desce a esquerda, pred não é mexido inicialmente
+		_root = _root->left;			// Desce a esquerda, pred nï¿½o ï¿½ mexido inicialmente
 		while (_root != nullptr) {
 			pred = _root;			// pred vai ser o elemento mais a direita
 			_root = _root->right;
 		}
 	} else {
 		if (key < _root->key)		// Chave se encontra a esquerda da raiz
-			// não mexemos em pred aqui
+			// nï¿½o mexemos em pred aqui
             _predecessor(_root->left, pred, key);
 		else						// Chave se encontra a direita
-			// No caso de _predecessor, pred é atualizado quando descemos a direita
+			// No caso de _predecessor, pred ï¿½ atualizado quando descemos a direita
             _predecessor(_root->right, pred = _root, key);
 	}
 }
 
-// Acha nó sucessor (succ) a chave (key)
+// Acha nï¿½ sucessor (succ) a chave (key)
 void BinaryTree::_successor(Node * _root, Node * & succ, int key) {
     // TODO
 	
 }
 
-// Valida a árvore
-// min e max são o menor e o maior valores contidas na árvore, respectivamente
+// Valida a ï¿½rvore
+// min e max sï¿½o o menor e o maior valores contidas na ï¿½rvore, respectivamente
 int BinaryTree::_validate(Node * _root, int &min, int &max) {
 
-	if (_root == nullptr) { // Árvore vazia é válida
+	if (_root == nullptr) { // ï¿½rvore vazia ï¿½ vï¿½lida
 		min = INT_MAX;
 		max = INT_MIN;
 		return 1;
@@ -119,13 +141,13 @@ int BinaryTree::_validate(Node * _root, int &min, int &max) {
 	int lmin, lmax; // menor e maior a esquerda
 	int rmin, rmax; // menor e maior a direita
 
-	// Se árvore à esquerda é inválida ou maior a esquerda > raiz então INVÁLIDA
+	// Se ï¿½rvore ï¿½ esquerda ï¿½ invï¿½lida ou maior a esquerda > raiz entï¿½o INVï¿½LIDA
 	if (!_validate(_root->left, lmin, lmax) || (lmax > _root->key)) return 0;
 
-	// Se árvore à direita é inválida ou menor à direita < raiz então INVÁLIDA
+	// Se ï¿½rvore ï¿½ direita ï¿½ invï¿½lida ou menor ï¿½ direita < raiz entï¿½o INVï¿½LIDA
 	if (!_validate(_root->right, rmin, rmax) || (rmin < _root->key)) return 0;
 
-	// Computando menor e maior para árvore em _root
+	// Computando menor e maior para ï¿½rvore em _root
 	min = (_root->left != nullptr) ? lmin : _root->key;
 	max = (_root->right != nullptr) ? rmax : _root->key;
 

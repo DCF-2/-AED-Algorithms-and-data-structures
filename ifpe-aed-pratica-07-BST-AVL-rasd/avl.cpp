@@ -11,9 +11,9 @@
 using namespace std;
 
 // Execute com debug para ver que as chamadas de
-//  BST::insert() e AVL::_insert() se alternam na pilha de execução.
-//  BST::_insert() realiza a inserção de fato, e na volta da recursão
-//  AVL::_insert() verifica se está balanceado e faz as rotações se preciso.
+//  BST::insert() e AVL::_insert() se alternam na pilha de execuï¿½ï¿½o.
+//  BST::_insert() realiza a inserï¿½ï¿½o de fato, e na volta da recursï¿½o
+//  AVL::_insert() verifica se estï¿½ balanceado e faz as rotaï¿½ï¿½es se preciso.
 BinaryTree::Node * AVLTree::_insert(Node *root, int key) {
 	root = BinaryTree::_insert(root, key);
 
@@ -57,7 +57,7 @@ BinaryTree::Node * AVLTree::rebalance(Node * node) {
 	return node;
 }
 
-// Realiza a rotação a esquerda sobre "node" retornando a nova raiz
+// Realiza a rotaï¿½ï¿½o a esquerda sobre "node" retornando a nova raiz
 BinaryTree::Node * AVLTree::rotateLeft(Node * node) {
 	Node * X = node;
 	Node * R = node->right;
@@ -73,10 +73,19 @@ BinaryTree::Node * AVLTree::rotateLeft(Node * node) {
 	return node;
 }
 
-// Realiza a rotação a direita sobre "node" retornando a nova raiz
+// Realiza a rotaï¿½ï¿½o a direita sobre "node" retornando a nova raiz
 BinaryTree::Node * AVLTree::rotateRight(Node * node) {
-    //TODO
-	
+    Node * X = node;
+	Node * L = node->left;
+	Node * LR = node->left->right;
+
+	X->left = LR;
+	L->right = X;
+
+	updateH(X);
+	updateH(L);
+
+	node = L;
     return node;
 }
 

@@ -20,16 +20,16 @@ class BinaryTree {
 protected:
 	struct Node {
 		int key;
-		int height; // altura da árvore em níveis
+		int height; // altura da ï¿½rvore em nï¿½veis
 		Node * left;
 		Node * right;
 		explicit Node(int key) : key(key), height(1), left(nullptr), right(nullptr) {}
 	};
 
-	// Pega a altura. Simplifica código no caso de subárvore vazia (nullptr)
+	// Pega a altura. Simplifica cï¿½digo no caso de subï¿½rvore vazia (nullptr)
 	static int H(Node * node) { return (node != nullptr)?node->height:0; }
 
-	// Atualiza a altura de um nó da árvore. Assume que a altura das subárvore está correta.
+	// Atualiza a altura de um nï¿½ da ï¿½rvore. Assume que a altura das subï¿½rvore estï¿½ correta.
 	static void updateH(Node * node) { node->height = max(H(node->left), H(node->right)) + 1; }
 
 	Node * root = nullptr;

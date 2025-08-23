@@ -8,15 +8,25 @@ using namespace std;
 class Solution {
 public:
     vector<int> twoSum(const vector<int>& nums, int target) {
-        // TODO Desafio
-       
-        return res;
+
+        return {};
     }
 
     vector<int> twoSum_simple(const vector<int>& nums, int target) {
-        // TODO
-       
-        return res;
+        set<int> conjunto_nums;
+        for(int num : nums){
+            conjunto_nums.insert(num);
+        }
+        for(int num_x : nums){
+            int complemento_y =  target -num_x;
+            if(conjunto_nums.count(complemento_y)){
+                if(num_x != complemento_y){
+                    return {num_x, complemento_y};
+                }
+            }
+        }
+
+        return {};
     }
 };
 
