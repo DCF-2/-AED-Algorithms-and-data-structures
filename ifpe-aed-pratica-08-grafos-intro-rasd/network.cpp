@@ -3,11 +3,35 @@
 //
 
 #include "graph.h"
+#include "vector"
+
+using namespace std;
 
 vector<int> overloaded(Graph capacity, Graph traffic) {
-    // TO-DO
+    int num_roteadores = capacity.size();
+    vector<int> capacidade_saida(num_roteadores, 0);
+    vector<int> trafego_entrada(num_roteadores, 0);
+    vector<int> result;
 
-    return res;
+    // 1. Calcula a capacidade total de SAÍDA de cada roteador.
+    for(int i = 0; i < num_roteadores; i++){
+        for(int vizinho : capacity.neighbors(i)){
+            capacidade_saida[i] += capacity.weight(i, vizinho);
+        }
+    }
+    // 2. Calcula o tráfego total de ENTRADA de cada roteador.
+    for(int i = 0; i < num_roteadores; i++){
+        for( int vizinho : traffic.neighbors(i)){
+            trafego_entrada[vizinho] += traffic.weight(i, vizinho);
+        }
+    }
+    // 3. Compara os totais e encontra os sobrecarregados.
+    for(int i = 0; i< num_roteadores; i++){
+        if(trafego_entrada[i] > capacidade_saida[i]){
+          result.push_back(i);
+        }
+    }
+    return result;
 }
 
 int main() {

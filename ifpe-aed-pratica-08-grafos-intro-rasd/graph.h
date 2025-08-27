@@ -19,16 +19,16 @@ public:
 	Graph(int size) : adj(size) {}
 	~Graph() = default;
 
-	int size() const { return (int)adj.size(); }	// retorna número de vértices
+	int size() const { return (int)adj.size(); }	// retorna nï¿½mero de vï¿½rtices
 
-	// Prática 08 - TO-DO
+	// Prï¿½tica 08 - TO-DO
 	void edge(int src, int dst, int w);	// Cria src -> dst com peso w
-	int degree(int vtx) const;                // retorna grau de um vértice
+	int degree(int vtx) const;                // retorna grau de um vï¿½rtice
     list<int> neighbors(int vtx) const;	    // retorna lista de vertices ligados a src
     int weight(int src, int dst) const;	    // retorna peso da aresta de src para dst
 	bool isConnected() const;
 
-	// Prática 09 - TO-DO (abaixo)
+	// Prï¿½tica 09 - TO-DO (abaixo)
 	list<int> dfs(int src); // Busca em profundidade
 	list<int> bfs(int src); // Busca em largura
 	list<int> spf(int src, int dst); // Menor caminho entre src e dst
@@ -36,7 +36,7 @@ public:
 	void print(); // Exibe o grafo
 
 private:
-	// Prática 09 - TODO
+	// Prï¿½tica 09 - TODO
 	void DFS(int src, vector<bool> &visited, list<int> &result); // DFS de fato
 	void BFS(int src, vector<bool> &visited, list<int> &result); // BFS de fato
     void dijkstra(int src, vector<int> &prev, vector<long> &dist); // acha os menores caminhos
