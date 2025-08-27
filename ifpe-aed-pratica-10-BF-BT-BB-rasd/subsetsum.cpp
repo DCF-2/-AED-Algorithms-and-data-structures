@@ -15,17 +15,17 @@ using namespace std;
 
 unsigned long long count_ssk = 0;
 
-/* Prática 10 - Força Bruta ------------------*/
+/* Prï¿½tica 10 - Forï¿½a Bruta ------------------*/
 
 bool subsetSumBF(const vector<int> &array, int K, vector<bool> &subset) {
         // GIVEN
-	long total = 1 << array.size(); // 2^N combinações totais
+	long total = 1 << array.size(); // 2^N combinaï¿½ï¿½es totais
 
-	for (long v = 0; v < total; v++) { // para todas as combinações
+	for (long v = 0; v < total; v++) { // para todas as combinaï¿½ï¿½es
 		count_ssk ++;
 
 		int cur_sum = 0;
-		for (unsigned i = 0; i < array.size(); i++) { // para todas as posições / bits
+		for (unsigned i = 0; i < array.size(); i++) { // para todas as posiï¿½ï¿½es / bits
 			subset[i] = v & (1 << i);
 			if (subset[i]) cur_sum += array[i];
 		}
@@ -35,16 +35,31 @@ bool subsetSumBF(const vector<int> &array, int K, vector<bool> &subset) {
 	return false;
 }
 
-/* Prática 10 - Backtracking ------------------- */
+/* Prï¿½tica 10 - Backtracking ------------------- */
 
+bool subsetSumBT_recursive(const vector<int> &array, int k, vector<bool> &subset, int index) {
+    count_ssk++;
+    // --- Casos Base ---
+    if (k == 0) return true; 
+    if (k < 0 || index < 0) return false;
 
+    // --- Passos Recursivos ---
+
+    // 1. Tenta INCLUIR o elemento array[index]
+    subset[index] = true;
+    if (subsetSumBT_recursive(array, k - array[index], subset, index - 1)) {
+        return true;
+    }
+
+    // 2. Se nÃ£o deu certo, faz o BACKTRACK: tenta NÃƒO INCLUIR o elemento.
+    subset[index] = false;
+    return subsetSumBT_recursive(array, k, subset, index - 1);
+}
 bool subsetSumBT(const vector<int> &array, int k, vector<bool> &subset) {
-    // TODO
-
-    return false;
+    return subsetSumBT_recursive(array, k, subset, array.size() -1);
 }
 
-/* Prática 11 - Greedy ------------------ */
+/* Prï¿½tica 11 - Greedy ------------------ */
 
 bool subsetSumGreedy(const vector<int> &array, int k, vector<bool> &subset) {
     // ???
@@ -52,7 +67,7 @@ bool subsetSumGreedy(const vector<int> &array, int k, vector<bool> &subset) {
     return false;
 }
 
-/* Prática 12 - Programação Dinâmica ------------------ */
+/* Prï¿½tica 12 - Programaï¿½ï¿½o Dinï¿½mica ------------------ */
 
 bool subsetSumMemo(const vector<int> &array, int k, vector<bool> &subset) {
     // ???

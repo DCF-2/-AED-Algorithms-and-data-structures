@@ -15,18 +15,32 @@ unsigned long long count_ssm = 0;
 
 using namespace std;
 
-/* Prática 10 - Força Bruta -----------------*/
+/* Prï¿½tica 10 - Forï¿½a Bruta -----------------*/
 
-// start e finish: início e final sendo testado agora;
-// ini e end: onde são retornados o início e final da melhor sequência
-// retorno é a soma da maior sequência
+// start e finish: inï¿½cio e final sendo testado agora;
+// ini e end: onde sï¿½o retornados o inï¿½cio e final da melhor sequï¿½ncia
+// retorno ï¿½ a soma da maior sequï¿½ncia
 int subseqMaxBF(const vector<int> &array, int & ini, int & end) {
-	// TODO
+	int maior_soma = INT_MIN;
+	int tamanho = array.size();
 
-	return -1;
+	for(size_t i = 0; i < tamanho; i++){
+		for (size_t j = i; j < tamanho; j++){
+			int soma_atual = 0;
+				for (size_t k = i; k < j; k++){
+					soma_atual += array[k];
+				}
+			if(soma_atual > maior_soma){
+				maior_soma = soma_atual;
+				ini = i;
+				end = j;
+			}
+		}
+	}
+	return maior_soma;
 }
 
-/* Prática 11 - Dividir e Conquistar ----------------- */
+/* Prï¿½tica 11 - Dividir e Conquistar ----------------- */
 
 int subseqMaxMiddle(const vector<int> &array, int start, int middle, int finish, int & ini, int & end) {
 	// GIVEN
@@ -68,14 +82,14 @@ int subseqMaxDC(const vector<int> &array, int & ini, int & end) {
 	return subseqMaxDC_Rec(array, 0, len - 1, ini, end);
 }
 
-/* Prática 12 - Rercusiva ----------------- */
+/* Prï¿½tica 12 - Rercusiva ----------------- */
 
 int subseqMaxRec(const vector<int> &array, int & ini, int & end) {
 	// ???
 	return -1;
 }
 
-/* Prática 12 - Memoization ----------------- */
+/* Prï¿½tica 12 - Memoization ----------------- */
 
 int subseqMaxMemo(const vector<int> &array, int & ini, int & end) {
 	// ???
@@ -83,7 +97,7 @@ int subseqMaxMemo(const vector<int> &array, int & ini, int & end) {
 	return -1;
 }
 
-/* Prática 12 - Programação Dinâmica ----------------- */
+/* Prï¿½tica 12 - Programaï¿½ï¿½o Dinï¿½mica ----------------- */
 
 int subseqMaxPD(const vector<int> &array, int & ini, int & end) {
 	// ???

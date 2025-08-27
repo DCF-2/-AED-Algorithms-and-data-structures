@@ -5,9 +5,25 @@
 using namespace std;
 
 int max_profit(const vector<int> &costs, const vector<int> &sales) {
-    // TODO
+    vector<int> lucro_diario;
 
-    return -1;
+    for(int i =0; i < costs.size(); i++){
+        lucro_diario.push_back(sales[i] - costs[i]);
+    }
+
+    int maior_lucro = INT_MIN;
+    for(int i =0; i <lucro_diario.size(); i++){
+        for(int j = i; j < lucro_diario.size(); j++){
+            int lucro_atual =0;
+                for(int k= i; k <= j; k++){
+                    lucro_atual = lucro_atual + lucro_diario[k];
+                }
+            if(lucro_atual > maior_lucro){
+                maior_lucro = lucro_atual;
+            }
+        }
+    }
+    return maior_lucro;
 }
 
 int main() {
