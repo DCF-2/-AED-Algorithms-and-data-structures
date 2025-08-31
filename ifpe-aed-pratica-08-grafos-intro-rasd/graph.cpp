@@ -104,7 +104,13 @@ list<int> Graph::dfs(int src) {
 
 // Busca em profundidade
 void Graph::DFS(int src, vector<bool> &visited, list<int> &result) {
-	// TO-DO
+	visited[src] = true;
+    result.push_back(src);
+    for(const auto& vizinho : this->neighbors(src)){
+            if(visited[vizinho] == false){
+                DFS(vizinho, visited, result);
+        }
+    }
 }
 
 // Busca em largura
@@ -122,12 +128,30 @@ list<int> Graph::bfs(int src) {
 
 // Busca em largura
 void Graph::BFS(int src, vector<bool> &visited, list<int> &result) {
-     // TO-DO
+    //queue<int> é um adaptador de contêiner da Biblioteca Padrão que implementa 
+    //uma estrutura de dados FIFO (First-In, First-Out), onde elementos 
+    //do tipo inteiro são adicionados no final e removidos do início.
+    queue<int> fila;
+    visited[src] = true;
+    fila.push(src);
+
+    while(!fila.empty()){
+        int no_atual = fila.front();
+        fila.pop();
+        result.push_back(no_atual);
+
+        for(const auto& vizinho : this->neighbors(no_atual)){
+                if(!visited[vizinho]){
+                    visited[vizinho] = true;
+                    fila.push(vizinho);
+                }
+        }
+    }
 }
 
 
 void Graph::dijkstra(int src, vector<int> &prev, vector<long> &dist) {
-     // TO-DO
+     // TO-DO (opicional)
 }
 
 list<int> Graph::spf(int src, int dst) {
@@ -154,4 +178,60 @@ void Graph::path(int dst, const vector<int> &prev, list<int> &result) {
 	// TO-DO
 }
 
+// Função principal: verifica se existe qualquer ciclo no grafo.
+bool Graph::has_cycle() {
+    for (int i = 0; i < size(); i++) {
+        if (has_cycle(i)) {
+            return true;
+        }
+    }
+    return false;
+}
 
+// Função de ajuda: inicia a busca por ciclo a partir de um nó 'src'.
+bool Graph::has_cycle(int src) {
+    vector<int> visited(size(), 0);
+    return has_cycle(src, visited);
+}
+
+// Função recursiva que efetivamente procura pelo ciclo.
+bool Graph::has_cycle(int src, vector<int> &visited) {
+    visited[src] = 1;
+    for (int vizinho : this->neighbors(src)) {
+        if (visited[vizinho] == 1) {
+            return true;
+        }
+        if (visited[vizinho] == 0) 
+            if (has_cycle(vizinho, visited)) {
+                return true;
+            }
+        }
+    
+        visited[src] = 2;
+    return false;
+}
+
+bool Graph::reachable(int src, int dst){
+    // Se a origem e o destino são o mesmo nó, a resposta é trivialmente sim.
+    if(src == dst) return true;
+
+    queue<int> fila;
+    vector<bool>visited(this->size(), false); //Inicializa o vetor com o tamanho do grafo.
+
+    visited[src] = true;
+    fila.push(src);
+
+    while(!fila.empty()){
+        int no_atual = fila.front();
+        fila.pop();
+
+        for(const auto& vizinho : this->neighbors(no_atual)){
+            if(vizinho == dst) return true; // alcançael
+            if(!visited[vizinho]){
+                visited[vizinho] = true;
+                fila.push(vizinho);
+            }
+        }
+    }
+    return false;
+}

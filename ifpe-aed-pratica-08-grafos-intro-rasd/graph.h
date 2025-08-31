@@ -33,14 +33,20 @@ public:
 	list<int> bfs(int src); // Busca em largura
 	list<int> spf(int src, int dst); // Menor caminho entre src e dst
 
+	bool has_cycle();			// Verifica se o grafo TEM QUALQUER ciclo
+    bool has_cycle(int src);   // Verifica se há um ciclo A PARTIR de src
+	bool reachable(int src, int dst); // Verifica se dst é alcançável a partir de src
+
 	void print(); // Exibe o grafo
 
 private:
-	// Pr�tica 09 - TODO
+	// Pr�tica 09 - TO DO
 	void DFS(int src, vector<bool> &visited, list<int> &result); // DFS de fato
 	void BFS(int src, vector<bool> &visited, list<int> &result); // BFS de fato
     void dijkstra(int src, vector<int> &prev, vector<long> &dist); // acha os menores caminhos
     void path(int src, const vector<int> &prev, list<int> &result); // extrai menor caminho de prev
+	bool has_cycle(int src, vector<int> &visited); // Usaremos int para 3 estados
+
 };
 
 
