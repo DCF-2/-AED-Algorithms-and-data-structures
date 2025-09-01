@@ -178,24 +178,24 @@ void Graph::path(int dst, const vector<int> &prev, list<int> &result) {
 	// TO-DO
 }
 
-// Função principal: verifica se existe qualquer ciclo no grafo.
-bool Graph::has_cycle() {
-    for (int i = 0; i < size(); i++) {
-        if (has_cycle(i)) {
-            return true;
-        }
+bool Graph::has_cycle() const {
+    for (int i = 0; i < adj.size(); i++) {
+        if (has_cycle(i)) return true;
     }
     return false;
 }
 
-// Função de ajuda: inicia a busca por ciclo a partir de um nó 'src'.
-bool Graph::has_cycle(int src) {
-    vector<int> visited(size(), 0);
+bool Graph::has_cycle(int src) const {
+    if (src < 0 || src >= adj.size())
+        throw std::runtime_error("Src invalido");
+
+    vector<bool> visited(adj.size(), false);
+
     return has_cycle(src, visited);
 }
 
 // Função recursiva que efetivamente procura pelo ciclo.
-bool Graph::has_cycle(int src, vector<int> &visited) {
+bool Graph::has_cycle(int src, vector<bool> &visited) const {
     visited[src] = 1;
     for (int vizinho : this->neighbors(src)) {
         if (visited[vizinho] == 1) {
@@ -211,7 +211,12 @@ bool Graph::has_cycle(int src, vector<int> &visited) {
     return false;
 }
 
-bool Graph::reachable(int src, int dst){
+bool Graph::reacheable(int src, int dst) const {
+    if (src < 0 || src >= adj.size())
+        throw std::runtime_error("Src invalido");
+
+    if (dst < 0 || src >= adj.size())
+        throw std::runtime_error("Dst invalido");
     // Se a origem e o destino são o mesmo nó, a resposta é trivialmente sim.
     if(src == dst) return true;
 
