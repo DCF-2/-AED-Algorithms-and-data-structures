@@ -126,9 +126,28 @@ int subseqMaxMemo(const vector<int> &array, int & ini, int & end) {
 /* Pr�tica 12 - Programa��o Din�mica ----------------- */
 
 int subseqMaxPD(const vector<int> &array, int & ini, int & end) {
-	// ???
+	if(array.empty()) return 0;
+	int soma_final = array[0];
+	int maior_soma = array[0];
 
-	return -1;
+	int ini_temp = 0;
+	ini = 0;
+	end = 0;
+
+	for(int i = 1; i < array.size(); i++){
+		if(maior_soma > 0){
+			maior_soma += array[i];
+		}else{
+			maior_soma = array[i];
+			ini_temp = i;
+		}
+		if(maior_soma > soma_final){
+			soma_final = maior_soma;
+			ini = ini_temp;
+			end = i;
+		}
+	}
+	return soma_final;
 }
 
 /* -------------------------------------- */

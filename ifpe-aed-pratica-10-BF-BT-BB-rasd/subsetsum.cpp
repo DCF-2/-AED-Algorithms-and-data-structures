@@ -96,9 +96,33 @@ bool subsetSumMemo(const vector<int> &array, int k, vector<bool> &subset) {
 }
 
 bool subsetSumDP(const vector<int> &array, int k, vector<bool> &subset) {
-    // ???
+    int n = array.size();
+	vector<vector<bool>>tabela(n+1, vector<bool>(k+1, false));
 
-    return false;
+	for(int i =0; i <= n; i++){
+		tabela[i][0] = true;
+	}
+	for(int i = 1; i <= n; i++){
+		for(int j = 1; j <= k; j++){
+			int valor_item = array[i-1];
+			tabela[i][j] = tabela[i-1][j];
+			if(j >= valor_item){
+				tabela[i][j] = tabela[i][j] || tabela[i-1][j-valor_item];
+			}
+		}
+	}
+
+	int solucao = tabela[n][k];
+	if(solucao){
+		int soma_rest = k;
+			for(int i = n; i > 0 && soma_rest; i--){
+				if((tabela[i-1][soma_rest] == false) && (soma_rest >= array[i-1])){
+					subset[i-1] = true;
+					soma_rest -= array[i-1];
+				}
+			} 
+	}
+    return solucao;
 }
 
 /* -------------------------------------- */
