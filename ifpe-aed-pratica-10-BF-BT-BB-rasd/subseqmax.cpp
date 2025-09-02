@@ -21,15 +21,15 @@ using namespace std;
 // ini e end: onde s�o retornados o in�cio e final da melhor sequ�ncia
 // retorno � a soma da maior sequ�ncia
 int subseqMaxBF(const vector<int> &array, int & ini, int & end) {
-	int maior_soma = INT_MIN;
-	int tamanho = array.size();
+	int maior_soma = array[0];
+	int tamanho = (int)array.size();
+	ini = end = 0;
 
 	for(size_t i = 0; i < tamanho; i++){
+		int soma_atual = 0;
 		for (size_t j = i; j < tamanho; j++){
-			int soma_atual = 0;
-				for (size_t k = i; k < j; k++){
-					soma_atual += array[k];
-				}
+					soma_atual += array[j];
+					count_ssm++;
 			if(soma_atual > maior_soma){
 				maior_soma = soma_atual;
 				ini = i;

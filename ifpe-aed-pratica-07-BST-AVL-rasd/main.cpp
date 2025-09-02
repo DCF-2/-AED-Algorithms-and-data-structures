@@ -19,22 +19,29 @@ using namespace std;
 void testTree(BinaryTree &tree, std::vector<int> values,
               bool sort_insert,
               bool test_succ_pred = true,
-              bool test_search_rem = true) {
+              bool test_search_rem = true)
+{
 
-    if (sort_insert) std::sort(values.begin(), values.end());
+    if (sort_insert)
+        std::sort(values.begin(), values.end());
 
-    try {
+    try
+    {
         cout << "Inserindo na arvore ... ";
-        for (auto v : values) {
+        for (auto v : values)
+        {
             tree.insert(v);
         }
         cout << "OK" << endl;
 
-        if (tree.validate()) {
+        if (tree.validate())
+        {
             cout << "Arvore eh valida: ";
             tree.show();
             cout << endl;
-        } else {
+        }
+        else
+        {
             cout << "ERRO: Arvore NAO eh valida: ";
             tree.show();
             cout << endl;
@@ -44,9 +51,11 @@ void testTree(BinaryTree &tree, std::vector<int> values,
         std::vector<int> sorted = values;
         std::sort(sorted.begin(), sorted.end());
 
-        if (test_succ_pred) {
+        if (test_succ_pred)
+        {
             cout << "Testando Successor e Predecessor:" << endl;
-            for (int i = 1; i < sorted.size() - 1; i++) {
+            for (int i = 1; i < sorted.size() - 1; i++)
+            {
                 int val = sorted[i];
                 int pred = sorted[i - 1];
                 int succ = sorted[i + 1];
@@ -57,21 +66,25 @@ void testTree(BinaryTree &tree, std::vector<int> values,
                 cout << "Successor   de " << val << " == " << succ << "? " << (succ_ok ? "SIM" : "NAO") << endl;
                 cout << "Predecessor de " << val << " == " << pred << "? " << (pred_ok ? "SIM" : "NAO") << endl;
 
-                if (!succ_ok) {
+                if (!succ_ok)
+                {
                     cout << "ERRO: Successor errado!" << endl;
                 }
 
-                if (!pred_ok) {
+                if (!pred_ok)
+                {
                     cout << "ERRO: Predecessor errado!" << endl;
                 }
 
-                if (!succ_ok || !pred_ok) {
+                if (!succ_ok || !pred_ok)
+                {
                     return;
                 }
             }
         }
 
-        if (test_search_rem) {
+        if (test_search_rem)
+        {
 
             cout << "Testando Search e Remove:" << endl;
 
@@ -82,7 +95,8 @@ void testTree(BinaryTree &tree, std::vector<int> values,
             // std::set implementada frequentemente com arvore binaria (red-black
             std::vector<int> search_vals = values;
 
-            for (int i = 0; i < values.size(); i++) {
+            for (int i = 0; i < values.size(); i++)
+            {
                 int v = v_min + (rand() % (v_dif + 1));
                 search_vals.push_back(v);
             }
@@ -90,7 +104,8 @@ void testTree(BinaryTree &tree, std::vector<int> values,
             std::set<int> values_set;
             values_set.insert(values.begin(), values.end());
 
-            for (int i = 0; i < values.size() * 1.5; i++) {
+            for (int i = 0; i < values.size() * 1.5; i++)
+            {
                 int v = search_vals[rand() % search_vals.size()];
                 bool found_values = values_set.find(v) != values_set.end();
                 bool found_tree = tree.search(v);
@@ -98,12 +113,14 @@ void testTree(BinaryTree &tree, std::vector<int> values,
                 cout << "Procurando " << v << ": deve existir? " << (found_values ? "SIM" : "NAO");
                 cout << " encontrado? " << (found_tree ? "SIM" : "NAO");
 
-                if (found_values != found_tree) {
-                    cout << "ERRO: Divergência na busca!" << endl;
+                if (found_values != found_tree)
+                {
+                    cout << "ERRO: Divergï¿½ncia na busca!" << endl;
                     return;
                 }
 
-                if (!found_tree) {
+                if (!found_tree)
+                {
                     cout << endl;
                     continue;
                 }
@@ -113,35 +130,40 @@ void testTree(BinaryTree &tree, std::vector<int> values,
                 bool removed = !tree.search(v);
                 cout << " removido? " << (removed ? "SIM" : "NAO");
 
-                if (!removed) {
-                    cout << endl << " ERRO: Divergência na busca!" << endl;
+                if (!removed)
+                {
+                    cout << endl
+                         << " ERRO: Divergï¿½ncia na busca!" << endl;
                     return;
                 }
 
                 bool valid = tree.validate();
                 cout << " valida? " << (valid ? "SIM" : "NAO") << endl;
 
-                if (!valid) {
-                    cout << endl << " ERRO: Arvore invalida!" << endl;
+                if (!valid)
+                {
+                    cout << endl
+                         << " ERRO: Arvore invalida!" << endl;
                     return;
                 }
             }
         }
 
         cout << "Testes OK!" << endl;
-
-    } catch (const std::runtime_error & e) {
+    }
+    catch (const std::runtime_error &e)
+    {
         cout << "ERRO: " << e.what() << endl;
         tree.show();
         cout << endl;
     }
 }
 
-
-int main() {
+int main()
+{
     bool test_succ_pred = false;
     bool test_search_rem = true;
-    std::vector<int> values = {10, 35, 22, 16, 1, 45, 17, 88, 62, 7}; // ordem de inserção
+    std::vector<int> values = {10, 35, 22, 16, 1, 45, 17, 88, 62, 7}; // ordem de inserï¿½ï¿½o
 
     cout << "*** Testando BST: " << endl;
     BinaryTree bst;
@@ -153,4 +175,3 @@ int main() {
 
     return 0;
 }
-
