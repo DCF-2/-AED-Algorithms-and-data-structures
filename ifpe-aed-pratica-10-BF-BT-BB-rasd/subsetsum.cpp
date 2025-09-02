@@ -10,6 +10,7 @@
 #include <chrono>
 #include <vector>
 #include <algorithm>
+#include <utility>
 
 using namespace std;
 
@@ -62,10 +63,30 @@ bool subsetSumBT(const vector<int> &array, int k, vector<bool> &subset) {
 /* Pr�tica 11 - Greedy ------------------ */
 
 bool subsetSumGreedy(const vector<int> &array, int k, vector<bool> &subset) {
-    // ???
+   vector< pair <int, int>> indicies;
+   for(size_t i = 0; i < array.size(); i++){
+		indicies.push_back({array[i], i});
+   }
+    // CORREÇÃO: Usar rbegin() e rend() para ordenar em ordem DECRESCENTE.
+   sort(indicies.rbegin(), indicies.rend());
 
-    return false;
+   int soma_rest = k;
+
+   for(const auto& par : indicies){
+		int valor_atual = par.first;
+		int indice_original = par.second;
+		if(valor_atual <= soma_rest){
+			subset[indice_original] = true;
+			soma_rest = soma_rest - valor_atual;
+		}
+   }
+   if(soma_rest == 0){
+	return true;
+   }else{
+	return false;
+   }
 }
+
 
 /* Pr�tica 12 - Programa��o Din�mica ------------------ */
 
